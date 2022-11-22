@@ -90,17 +90,20 @@ function HomePage() {
       ) : null}
 
       {chain && <div>Chain : Connected to {chain.name}</div>}
-      {chains.map((x) => (
-        <button
-          className="mt-2 px-3 py-2 block rounded bg-slate-500 text-white focus:outline-none"
-          disabled={!switchNetwork || x.id === chain?.id}
-          key={x.id}
-          onClick={() => switchNetwork?.(x.id)}
-        >
-          {x.name}
-          {isLoading && pendingChainId === x.id && " (switching)"}
-        </button>
-      ))}
+      <div>
+        Switch Chain To : 
+        {chains.map((x) => (
+          <button
+            className="mt-2 px-3 py-2 ml-2 inline-block rounded bg-slate-500 text-white focus:outline-none"
+            disabled={!switchNetwork || x.id === chain?.id}
+            key={x.id}
+            onClick={() => switchNetwork?.(x.id)}
+          >
+            {x.name}
+            {isLoading && pendingChainId === x.id && " (switching)"}
+          </button>
+        ))}
+      </div>
 
       <div>
         <input
