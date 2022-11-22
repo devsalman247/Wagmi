@@ -106,7 +106,7 @@ function HomePage() {
       <div>Status : Connected</div>
       <div>Address : Your address is {address}</div>
       <div>
-        Balance : Your balance is {`${data?.formatted || 0} ${data?.symbol}`}
+        Balance : Your balance is {`${data?.formatted || 0} ${data?.symbol || '$'}`}
       </div>
 
       {activeConnector ? (
