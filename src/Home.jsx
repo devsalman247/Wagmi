@@ -69,9 +69,6 @@ function HomePage() {
 
   useEffect(() => {
     setConnected(isConnected);
-    if (address) {
-      console.log("Connected");
-    }
   }, [isConnected]);
 
   if (!Connected) {

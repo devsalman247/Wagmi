@@ -19,7 +19,8 @@ function App() {
   ]);
 
   const wagmiClient = createClient({
-    connectors: modalConnectors({ appName: "web3Modal", chains }),
+    autoConnect : true,
+    connectors : modalConnectors({ appName: "web3Modal", chains }),
     provider,
   });
 
