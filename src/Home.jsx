@@ -17,7 +17,7 @@ function HomePage() {
   const [Connected, setConnected] = useState(false);
   const [message, setMessage] = useState("Connecting to demo dapp");
   const [receiver, setReceiver] = useState("");
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState("");
 
   // useAccount()
   const {
@@ -30,6 +30,7 @@ function HomePage() {
     status,
   } = useAccount({
     onConnect({ address, connector, isReconnected }) {
+      localStorage.setItem("address",address);
       console.log("Connected", { address, connector, isReconnected });
     },
     onDisconnect() {
@@ -75,7 +76,22 @@ function HomePage() {
   const { config } = usePrepareSendTransaction({
     request: { to: receiver, value: Web3.utils.toBN("00000000000000000") },
   });
-  const { data: transaction, sendTransaction } = useSendTransaction(config);
+  // const { data: transaction, sendTransaction } = useSendTransaction(config);
+
+  async function sendTransaction() {
+    let ether = Web3.utils.toWei(amount, "ether");
+    ether = Web3.utils.toHex(ether);
+    console.log(typeof Web3.utils.toHex(amount));
+    const transactionParameters = {
+      from: localStorage.getItem("address"),
+      to: receiver,
+      value: ether
+    };
+    await window.ethereum.request({
+      method: "eth_sendTransaction",
+      params: [transactionParameters],
+    });
+  }
 
   // Change default sign message from input
   function handleSignInp(e) {
